@@ -10,9 +10,9 @@ MariaDB-10.1.21
 
 ## Web Server
 Xampp 5.6.30
-*Apache-2.4.25 (Win32) 
-*OpenSSL-1.0.2j 
-*PHP-5.6.30
+* Apache-2.4.25 (Win32) 
+* OpenSSL-1.0.2j 
+* PHP-5.6.30
 
 ## Installation Instruction
 * Install Xampp 5.6.30
