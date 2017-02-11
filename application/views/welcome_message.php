@@ -4,94 +4,91 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to Sistem Informasi Alumni</title>
-
-	<style type="text/css">
-
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-	<script type="text/javascript">
-	function cekform()
-	{
-		if(!$("#username").val())
-		{
-			alert('maaf username tidak boleh kosong');
-			$("#username").focus();
-			return false;
-		}
-	}
-	</script>
+	<title>ITERA - Sistem Informasi Kepegawaian</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>   
+    <link rel="stylesheet" href="<?=base_url()?>assets/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/dataTable/media/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?=base_url()?>assets/dataTable/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" href="<?=base_url()?>assets/logo%20itera%20oke.png">    
+    <script src="<?=base_url()?>assets/dataTable/media/js/jquery.dataTables.min.js"></script>  
+    <script src="<?=base_url()?>assets/act.js"></script>  
+    <style>
+        body{
+            background: #E3E3E3;
+        }
+        .pad{
+            padding: 10px 0 0 20px;
+        }
+        .pad-bottom{
+            padding-bottom:10px;
+        }
+        .warna{
+            background: #DAA520;
+            color: #fff;
+        }
+        .avatar { 
+            width:100px;
+            height:100px;
+            margin:25px auto 10px auto;
+            border-radius:100%;
+            padding:50px;
+            border:2px solid #aaa;
+            background-size:cover;
+            background-image:url("http://hotspot.itera.ac.id/img/logo-itera.png");
+        }
+        .hotspot_lbl { 
+            font:bold 13px Arial; 
+        }
+        .itera_lbl { 
+            margin:3px 0 10px 0;
+            font:normal 13px Arial; 
+        }
+    </style>
 </head>
 <body>
-
-<div id="container">
-	<h1>Welcome to Sistem Informasi Alumni ITERA</h1>
-
-	<div class="login-card">
-		<h1>Log-in</h1><br>
-		  <form method="POST" onsubmit="return cekform();">
-			<input type="text" name="user" placeholder="Username">
-			<input type="password" name="pass" placeholder="Password">
-			<input type="submit" name="login" class="login login-submit" value="login">
-		  </form>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-6 col-md-offset-3" style="box-shadow: 0 10px 10px -6px #777;">
+                <div class="row" style="background:#DAA520; min-height: 40px; color: #fff; padding: 10px 0 0 20px; margin-top: 100px;">
+                    <b>Sistem Informasi Kepegawaian</b>
+                </div>
+                <div class="row" style="background: #fff; min-height: 220px; border-bottom: solid thin #cccccc; ">
+                    <div class="row">
+                        <!--kiri-->
+                        <div class="col-md-4 pad" style="text-align:center">
+                            <div class="avatar avatar_sd">
+                                
+                            </div>
+                            <div class="hotspot_lbl">UPT TIK</div>
+                            <div class="itera_lbl">Institut Teknologi Sumatera</div>
+                        </div>
+                        <!--kanan-->
+                        <div class="col-md-8 pad">
+                            <div class="alert alert-warning" style="margin:10px 0 9px 0;padding:7px;font-size:11px;text-align:center; max-width:340px" role="alert">
+                                Masuklah dengan akun yang terregistrasi. Jika terjadi masalah pada sistem hubungi UPT TIK.
+                            </div>
+                            <div id="loading"></div>
+                            <form id="form_login">
+                                <div class="input-group pad-bottom" >
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>    
+                                    <input type="text" name ="user" id="username" class="form-control" placeholder="Username" style="max-width:300px" />
+                                </div>
+                                <div class="input-group pad-bottom">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>    
+                                    <input type="password" name ="password" id="password" class="form-control" placeholder="Password" style="max-width:300px" value=""  />
+                                </div>
+                                <button type="submit" class="btn btn-default warna">Login</button>
+                            </form>
+                         </div>
+                    </div>
+                </div>
+                <div class="row" style="min-height: 40px; background:#FFF; padding: 10px 0 0 20px; font-size:12px; text-align: center">
+                    &copy; 2016 All Right Reserved
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
