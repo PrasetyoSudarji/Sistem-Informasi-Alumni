@@ -10,15 +10,33 @@
       <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <!--<ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li> 
-        <li><a href="#">Page 3</a></li> 
-      </ul>-->
+      <ul class="nav navbar-nav">
+       <?php
+			$nim = 14113003;
+			$user = $this->Model->getStatus($nim);
+			foreach($user->result_array() as $menu){
+				
+				if ($menu['status'] == 1 ){
+					echo "<li class='<?php if($link=='home'){echo'active';}?><a href='".base_url()."controll/index'><i class='fa fa-home' aria-hidden='true'></i> Home </a></li>";
+        			echo "<li class='";
+					if ($link=='lowongan_admin'){echo'active';}
+					echo "'><a href='".base_url()."controll/lowongan_admin'><i class='fa fa-user' aria-hidden='true'></i> Lowongan Admin </a></li>";		
+				} else if ($menu['status'] == 2 ){
+					echo "<li class=' <?php if($link=='home'){echo'active';}?><a href='".base_url()."controll/index'><i class='fa fa-home' aria-hidden='true'></i> Home </a></li>";
+					echo "<li class=' <?php if($link=='profile'){echo'active';}?><a href='".base_url()."controll/profile'><i class='fa fa-user' aria-hidden='true'></i> profile </a></li>";
+					 echo "<li class='"; 
+					 if ($link=='lowongan'){echo'active';}
+					 echo "'><a href='".base_url()."controll/lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lowongan </a></li>";
+				} else {
+					echo "ERROR";
+				}
+			}
+			
+		?>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
-          <li><a href="#" data-toggle="popover" title="Silahkan Login" data-content="<form><label>Username:</label><input type='text' class='form-control'/><label>Password:</label><input type='text' class='form-control' style='min-width:200px'/><br/><button type='submit' class='btn btn-primary'>Login</button></form>" data-placement="bottom"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="#" data-toggle="popover" title="Silahkan Login" data-content="<form><label>Username:</label><input type='text' class='form-control'/><label>Password:</label><input type='text' class='form-control' style='min-width:200px'/><br/><button type='submit' class='btn btn-primary'>Login</button></form>" data-placement="bottom"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
       </ul>
     </div>
   

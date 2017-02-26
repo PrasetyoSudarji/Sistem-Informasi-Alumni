@@ -13,7 +13,7 @@ class Model extends CI_Model {
     }
 
     function list_data_all($table){
-         return $query = $this->db->get($table)->result();  
+         return $query = $this->db->get($table);  
     }
     
     function hitung($param_id, $id, $table){
@@ -50,6 +50,14 @@ class Model extends CI_Model {
 							->where("data_alumni.nim",$nim)
 							->get();
 	
+	}
+	
+	public function getStatus($nim)
+	{	
+		return $data = $this->db->select("status")
+							->from("data_alumni")
+							->where("nim",$nim)
+							->get();
 	}
     
 }
