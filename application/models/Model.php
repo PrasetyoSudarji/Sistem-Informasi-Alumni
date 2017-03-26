@@ -11,7 +11,7 @@ class Model extends CI_Model {
     function list_data($table, $limit, $start){
          return $query = $this->db->get($table, $limit, $start)->result();  
     }
-
+	
     function list_data_all($table){
          return $query = $this->db->get($table);  
     }
@@ -45,9 +45,26 @@ class Model extends CI_Model {
 	public function getProfile($nim)
 	{	
 		return $data = $this->db->select("*")
-							->from("data_alumni")
-							->join("data_alamat","data_alamat.nim = data_alumni.nim")
-							->where("data_alumni.nim",$nim)
+							->from("mahasiswa")
+							->join("data_alamat","mahasiswa.nim = mahasiswa.nim")
+							->where("mahasiswa.nim",$nim)
+							->get();
+	
+	}
+	
+	public function getProdiAll()
+	{	
+		return $data = $this->db->select("nama")
+							->from("prodi")
+							->get();
+	
+	}
+	
+	public function getNama($nim)
+	{	
+		return $data = $this->db->select("nama")
+							->from("mahasiswa")
+							->where("mahasiswa.nim",$nim)
 							->get();
 	
 	}
@@ -55,7 +72,7 @@ class Model extends CI_Model {
 	public function getStatus($nim)
 	{	
 		return $data = $this->db->select("status")
-							->from("data_alumni")
+							->from("mahasiswa")
 							->where("nim",$nim)
 							->get();
 	}

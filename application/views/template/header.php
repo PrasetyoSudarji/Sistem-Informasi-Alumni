@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
 	<!--<link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap-container.css">-->
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="<?=base_url()?>assets/jquery.js"></script>
     <script src="<?=base_url()?>assets/act.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
