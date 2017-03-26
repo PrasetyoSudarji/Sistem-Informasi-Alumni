@@ -14,7 +14,7 @@
 					<?php 
 						$prodi = $this->Model->getProdiAll();
 						foreach($prodi->result_array() as $listprodi){
-							echo "<option value=".$listprodi['nama'].">".$listprodi['nama']."</option>";
+							echo "<option value='".$listprodi['nama']."'>".$listprodi['nama']."</option>";
 						}
 					?>
 				</select> </div>
