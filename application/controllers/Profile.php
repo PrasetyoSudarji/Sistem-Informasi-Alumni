@@ -98,11 +98,16 @@ class Profile extends CI_Controller {
 		);
 		$this->Model->update('nim',$nim,'data_alamat',$update_alamat);
 		
+		$alert = "<script>
+				alert('Update Profile Sukses !!');
+				window.location.href='".base_url()."Profile/edit_profile';
+				</script>";
 		
 		$data = array(
 			'session' => $_SESSION['login'],
-			'page' => 'input_sukses',
-			'link' => 'input_sukses'
+			'alert' => $alert,
+			'page' => 'sukses',
+			'link' => 'sukses'
 		);
 		$this->load->view('template/wrapper', $data);
 	}

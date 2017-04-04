@@ -59,12 +59,16 @@ class Lowongan extends CI_Controller {
 			'counter' => $no
 		);
 		$this->Model->update("prodi",$id_prodi,"lowongan_counter",$data_insert2);
-		
+		$alert = "<script>
+				alert('Input Success !!');
+				window.location.href='".base_url()."Lowongan/input_lowongan';
+				</script>";
 		$data = array(
 			'kode' => $kode,
 			'session' => $_SESSION['login'],
-			'page' => 'input_sukses',
-			'link' => 'input_sukses',
+			'alert' => $alert,
+			'page' => 'sukses',
+			'link' => 'sukses',
 		);
 		$this->load->view('template/wrapper', $data);
 		
@@ -77,14 +81,25 @@ class Lowongan extends CI_Controller {
 				'deskripsi' => $_POST['deskripsi']
 			);
 			$this->Model->update("kode",$_POST['kode'],"lowongan",$data_insert);
+			
+			$alert = "<script>
+				alert('Update Lowongan Success !!');
+				window.location.href='".base_url()."Lowongan';
+				</script>";
 		}else{
 			$this->Model->hapus("kode", $_POST['kode'], "lowongan");
+			
+			$alert = "<script>
+				alert('Delete Lowongan Success !!');
+				window.location.href='".base_url()."Lowongan';
+				</script>";
 		}
 		
 		$data = array(
 			'session' => $_SESSION['login'],
-			'page' => 'lowongan',
-			'link' => 'lowongan',
+			'alert' => $alert,
+			'page' => 'sukses',
+			'link' => 'sukses',
 			'lowongan' => $this->Model->list_data_all('lowongan')
 		);
 		$this->load->view('template/wrapper', $data);
@@ -149,10 +164,15 @@ class Lowongan extends CI_Controller {
 
 		$this->email->send();
 		*/
+		$alert = "<script>
+				alert('Apply Lowongan Sukses !!');
+				window.location.href='".base_url()."Lowongan';
+				</script>";
 		$data = array(
 			'session' => $_SESSION['login'],
-			'link' => 'lowongan',
-			'page' => 'lowongan',
+			'alert' => $alert,
+			'link' => 'sukses',
+			'page' => 'sukses',
 			'lowongan' => $this->Model->list_data_all('lowongan')
 		);
 		$this->load->view('template/wrapper', $data);
