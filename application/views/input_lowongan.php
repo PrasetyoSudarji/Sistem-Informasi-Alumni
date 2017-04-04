@@ -17,6 +17,7 @@
 						}
 					?>
 				</select> </div>
+				<h4>Judul Lowongan	: <input type="text" name="judul"></h4><br>
 				
 				<h4>Nama Perusahaan	: <input type="text" name="nama_perusahaan"></h4><br>
 				

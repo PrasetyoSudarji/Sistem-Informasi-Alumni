@@ -41,23 +41,24 @@ class Lowongan extends CI_Controller {
 		}
 		
 		$nama_perusahaan = $_POST['nama_perusahaan'];
+		$judul = $_POST['judul'];
 		$expired = $_POST['expired'];
 		$deskripsi = $_POST['deskripsi'];
 		
 		$data_insert = array(
 			'kode' => $kode,
 			'prodi' => $prodi,
+			'judul' => $judul,
 			'nama_perusahaan' => $nama_perusahaan,
 			'expired_time' => $expired,
 			'deskripsi' => $deskripsi
 		);
-		$this->Model->simpan_data($data_insert,'lowongan');
+		$this->Model->simpan_data($data_insert,"lowongan");
 		
 		$data_insert2 = array(
 			'counter' => $no
 		);
 		$this->Model->update("prodi",$id_prodi,"lowongan_counter",$data_insert2);
-		
 		
 		$data = array(
 			'kode' => $kode,
@@ -89,13 +90,57 @@ class Lowongan extends CI_Controller {
 		$this->load->view('template/wrapper', $data);
 	}
 	
-	public function proc_apply_lowongan($kode_lowongan){
+	public function proc_apply_lowongan(){
+		$query = $this->Model->getNim($_SESSION['login'])->result_array();
+		foreach($query as $query){
+			$nim = $query["nim"];
+		}
+		$data_where = array(
+			'nim' => $nim,
+			'kode' => $_POST['kode']
+		);
+		$query2 = $this->db->select("status")
+							->where($data_where)
+							->get("lowongan_applied")
+							->result_array();
+		if ($query2 == null){
+			$data_insert = array(
+				'kode' => $_POST['kode'],
+				'nim' => $nim,
+				'status' => "1"
+			);
+			$this->Model->simpan_data($data_insert,"lowongan_applied");
+		}else{
+			$data_where = array(
+				'nim' => $nim,
+				'kode' => $_POST['kode']
+			);
+			
+			$data_insert = array(
+				'status' => "1"
+			);
+			$this->db->where($data_where);
+			$this->db->update("lowongan_applied",$data_insert);
+			
+		}
 		
-		
+		//Kirim email
+		/*$this->load->library('email');
+
+		$this->email->from('admin@itera.ac.id', 'Administrator');
+		$this->email->to($_SESSION['login']);
+		$this->email->cc('');
+		$this->email->bcc('');
+
+		$this->email->subject('Info Lowongan');
+		$this->email->message($_POST['deskripsi']);
+
+		$this->email->send();
+		*/
 		$data = array(
 			'session' => $_SESSION['login'],
-			'page' => 'lowongan',
 			'link' => 'lowongan',
+			'page' => 'lowongan',
 			'lowongan' => $this->Model->list_data_all('lowongan')
 		);
 		$this->load->view('template/wrapper', $data);
