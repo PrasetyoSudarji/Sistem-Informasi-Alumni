@@ -3,7 +3,7 @@
 		<title>Profile</title>
 	</head>
 	<body>
-		<div class="container-content">
+		<div class="container">
 			<br>
 			<br>
 			<?php
@@ -11,6 +11,7 @@
 					echo "<br>";
 					echo "<img src =".base_url('assets/uploads/'.$user['foto'].'')." width='200px' height='200px'><br><br>";
 					echo "Nama : ".$user['nama']."</br>";
+					echo "Username : ".$user['username']."</br>";
 					echo "NIM : ".$user['nim']."</br>";
 					echo "Program Studi : ".$user['prodi']."</br>";
 					echo "Tahun Lulus : ".$user['tahun_lulus']."<hr>";

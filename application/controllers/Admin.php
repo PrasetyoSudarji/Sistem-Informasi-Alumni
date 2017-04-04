@@ -1,51 +1,90 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
-
-	public function __construct(){
-		parent::__construct();
-		$this->load->model('Model');
-	}
-
-	public function index(){
+class Login extends CI_Controller {
+    
+    public function index(){
+		$session = null;
 		$data = array(
-			'page' => 'admin',
-			'link' => 'admin'
+			'session' => $session, 
+			'page' => 'login_view',
+			'link' => 'login_view'
 		);
+		
 		$this->load->view('template/wrapper', $data);
-	}
+    }
 	
-	public function profile(){
-		$nim = 14113003;
-		$config['upload_path']          = './assets/uploads/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 2048;
-		$config['max_width']            = 1024;
-		$config['max_height']           = 768;
-		
-		$this->load->library('upload', $config);
-		if ( !$this->upload->do_upload('userfile'))
-		{
-			
-		}
-		else
-		{
-			$img = $this->upload->data();
-			$gambar = $img['file_name'];
-			$update_gambar = array (
-				'foto' => $gambar
-			);
-			$this->Model->update('nim',$nim,'data_alumni',$update_gambar);
-		}
-		
+	public function admin(){
+		$session = null;
 		$data = array(
-			'page' => 'profile',
-			'link' => 'profile',
-			'profile' => $this->Model->getProfile($nim)
+			'session' => $session, 
+			'page' => 'login_admin',
+			'link' => 'login_admin'
 		);
+		
 		$this->load->view('template/wrapper', $data);
-	}
+    }
+    
+	public function log_in(){
+		$queryuser = $this->Model->ambil("nim",$_POST["nim"],"mahasiswa");
+		if ($queryuser->result_array() == null){
+			$_SESSION['login'] = null;
+			$data = array(
+				'session' => $_SESSION['login'],
+				'page' => 'login_view',
+				'link' => 'login_view'
+			);
+		}else{
+			$_SESSION['login'] = $_POST["nim"];
+			$data = array(
+				'session' => $_SESSION['login'],
+				'page' => 'home',
+				'link' => 'home'
+			);
+		}
+		$this->load->view('template/wrapper', $data);
+    }
+	
+	public function admin(){
+		$queryuser = $this->Model->ambil("nim",$_POST["nim"],"mahasiswa");
+		if ($queryuser->result_array() == null){
+			$_SESSION['login'] = null;
+			$data = array(
+				'session' => $_SESSION['login'],
+				'page' => 'login_view',
+				'link' => 'login_view'
+			);
+		}else{
+			$_SESSION['login'] = $_POST["nim"];
+			$data = array(
+				'session' => $_SESSION['login'],
+				'page' => 'home',
+				'link' => 'home'
+			);
+		}
+		$this->load->view('template/wrapper', $data);
+    }
+	
+    public function login_nya($user, $password){
+        $ch = curl_init(); //buat resourcce cURL
 
+        //set opsi URL dan opsi RETURNTRANSFER
+        curl_setopt($ch, CURLOPT_URL, "http://192.168.6.16/ariefsso/?user=".$user."&password=".md5($password)."");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        //dapatkan halaman URL dan berikan ke variabel $output
+        $output = curl_exec($ch);
+
+        //tutup resource cURL
+        curl_close($ch);
+        
+        //cetak output
+        $output = json_decode($output);
+        
+        echo 'status = '.$output->status.'<br/>';
+        echo 'user = '.$output->user.'<br/>';
+        echo 'name = '.$output->name.'<br/>';
+        echo 'occupation = '.$output->occupation.'<br/>';
+    }
+	
 }

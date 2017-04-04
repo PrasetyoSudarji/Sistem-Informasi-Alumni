@@ -3,22 +3,23 @@
 		<title>Profile</title>
 	</head>
 	<body>
-		<div class="container-content">
+		<div class="container">
 			<br>
 			<?php
 				
-				echo "<form method='POST' action='".base_url()."index.php/controll/updateFoto'>";
+				echo "<form method='POST' action='".base_url()."Profile/proc_update_foto'>";
 				foreach ($profile->result_array() as $foto){
-					echo "<img src =".base_url('assets/uploads/'.$foto['foto'].'')." width='200px' height='200px'><br>";
+					echo "<img src ='".base_url('assets/uploads/'.$foto['foto'].'')."' width='200px' height='200px'><br>";
 				}
 				echo "<input type='file' name='userfile' size='20' /><br />";
 				echo "<input type='submit' value='change' /><hr>";
 				echo "</form>";
 				
-				echo "<form method='POST' action='".base_url()."index.php/controll/updateProfile'>";	
+				echo "<form method='POST' action='".base_url()."Profile/proc_update_profile'>";	
 				foreach ($profile->result_array() as $user){
 					echo "<br>";
 					echo "<label for='nama'>Nama :</label> <input type='text' class='form-control' name='nama' value='".$user['nama']."'>";
+					echo "<label for='username'>Username :</label> <input type='text' class='form-control' name='username' value='".$user['username']."'>";
 					echo "<label for='nim'>NIM :</label> <input type='text' class='form-control' name='nim' value='".$user['nim']."'>";
 					echo "<label for='prodi'>Program Studi :</label> <input type='text' class='form-control' name='prodi' value='".$user['prodi']."'>";
 					echo "<label for='th_lulus'>Tahun Lulus :</label> <input type='text' class='form-control' name='tahun_lulus' value='".$user['tahun_lulus']."'>";

@@ -42,11 +42,11 @@ class Model extends CI_Model {
         return $this->db->get($table);
     }
 	
-	public function getProfile($nim)
+	public function getProfileMhs($nim)
 	{	
 		return $data = $this->db->select("*")
 							->from("mahasiswa")
-							->join("data_alamat","mahasiswa.nim = mahasiswa.nim")
+							->join("data_alamat","mahasiswa.nim = data_alamat.nim")
 							->where("mahasiswa.nim",$nim)
 							->get();
 	
@@ -60,20 +60,58 @@ class Model extends CI_Model {
 	
 	}
 	
-	public function getNama($nim)
+	public function getNamaMhs($email)
 	{	
-		return $data = $this->db->select("nama")
+		return $data = $this->db->select("username")
 							->from("mahasiswa")
-							->where("mahasiswa.nim",$nim)
+							->where("email",$email)
 							->get();
 	
 	}
 	
-	public function getStatus($nim)
+	public function getNamaAdm($email)
+	{	
+		return $data = $this->db->select("username")
+							->from("admin")
+							->where("email",$email)
+							->get();
+	
+	}
+	
+	public function getNim($email)
+	{	
+		return $data = $this->db->select("nim")
+							->from("mahasiswa")
+							->where("email",$email)
+							->get();
+	
+	}
+	
+	public function getIdProdi($prodi)
+	{	
+		return $data = $this->db->select("id")
+							->from("prodi")
+							->where("nama",$prodi)
+							->get();
+	
+	}
+	
+	public function getCounter($id_prodi)
+	{	
+		return $data = $this->db->select("counter")
+							->from("lowongan_counter")
+							->where("prodi",$id_prodi)
+							->get();
+	
+	}
+	
+	
+	
+	public function getStatusAdm($email)
 	{	
 		return $data = $this->db->select("status")
-							->from("mahasiswa")
-							->where("nim",$nim)
+							->from("admin")
+							->where("email",$email)
 							->get();
 	}
     

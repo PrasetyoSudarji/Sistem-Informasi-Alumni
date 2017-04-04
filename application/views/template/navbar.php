@@ -12,10 +12,12 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
 	  <?php
-			$nim = 14113003;
-			$user = $this->Model->getStatus($nim);
-			foreach($user->result_array() as $menu){
-				echo "<li class='<?php if($link=='home'){echo'active';}?><a href='".base_url()."controll/index'><i class='fa fa-home' aria-hidden='true'></i> Home </a></li>";
+			$email = $session;
+			if ($email == null){
+				echo "<li class=";if($link=='home'){echo 'active';}echo "><a href='".base_url()."'><i class='fa fa-home' aria-hidden='true'></i> Home </a></li>";
+			}else{
+				$user = $_SESSION['status'];
+				echo "<li class=";if($link=='home'){echo 'active';}echo "><a href='".base_url()."Controll/home'><i class='fa fa-home' aria-hidden='true'></i> Home </a></li>";
 			}
 	  ?>
       </ul>
@@ -23,22 +25,36 @@
         <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
         <!--<li><a href="#" data-toggle="popover" title="Silahkan Login" data-content="<form><label>Username:</label><input type='text' class='form-control'/><label>Password:</label><input type='text' class='form-control' style='min-width:200px'/><br/><button type='submit' class='btn btn-primary'>Login</button></form>" data-placement="bottom"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>-->
 		<?php
-		
-			$profile = $this->Model->getNama($nim);
-			foreach($profile->result_array() as $namapengguna){
-				echo "<li class='dropdown'>";
-				echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>".$namapengguna['nama']."<span class='caret'></span></a>";
-				echo "<ul class='dropdown-menu'>";
-				if ($menu['status'] == 1 ){
-					echo "<li><a href='".base_url()."controll/lowongan_admin'><i class='fa fa-user' aria-hidden='true'></i> Lowongan </a></li>";
-				} else if ($menu['status'] == 2 ){
-					echo "<li><a href='".base_url()."controll/profile'><i class='fa fa-user' aria-hidden='true'></i> Profile </a></li>";
-					echo "<li><a href='".base_url()."controll/editProfile'><i class='fa fa-user' aria-hidden='true'></i> Edit Profile </a></li>";
-					echo "<li><a href='".base_url()."controll/lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lowongan </a></li>";
+			if ($email == null){
+				echo "<li class=";if($link=='login_view'){echo 'active';}echo "><a href='".base_url()."Login'><i class='fa fa-user' aria-hidden='true'></i> Login </a></li>";
+			}else{
+				if($user == 1 || $user == 2){
+					$profile = $this->Model->getNamaAdm($email);
+				}else{
+					$profile = $this->Model->getNamaMhs($email);
 				}
-				echo "<li><a href='#'>Log out</a></li>"; 
-				echo "</ul>"; 
-				echo "</li>";
+				foreach($profile->result_array() as $namapengguna){
+					echo "<li class='dropdown'>";
+					echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>".$namapengguna['username']."<span class='caret'></span></a>";
+					echo "<ul class='dropdown-menu'>";
+					if ($user == 1 ){
+						echo "<li class=";if($link=='lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lihat Lowongan </a></li>";
+						echo "<li class=";if($link=='input_lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan/input_lowongan'><i class='fa fa-user' aria-hidden='true'></i> Buat Lowongan </a></li>";
+						echo "<li class=";if($link=='input_admin'){echo'active';}echo "><a href='/#'><i class='fa fa-user' aria-hidden='true'></i> Buat Admin </a></li>";
+						echo "<li class=";if($link=='input_user'){echo'active';}echo "><a href='/#'><i class='fa fa-user' aria-hidden='true'></i> Buat user </a></li>";
+					}if ($user == 2 ){
+						echo "<li class=";if($link=='lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lihat Lowongan </a></li>";
+						echo "<li class=";if($link=='input_lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan/input_lowongan'><i class='fa fa-user' aria-hidden='true'></i> Buat Lowongan </a></li>";
+					} else if ($user == 3 ){
+						echo "<li class=";if($link=='profile'){echo'active';}echo "><a href='".base_url()."Profile'><i class='fa fa-user' aria-hidden='true'></i> Profile </a></li>";
+						echo "<li class=";if($link=='edit_profile'){echo'active';}echo "><a href='".base_url()."Profile/edit_profile'><i class='fa fa-user' aria-hidden='true'></i> Edit Profile </a></li>";
+						echo "<li class=";if($link=='lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lowongan </a></li>";
+					}
+					echo "<li><a href='".base_url()."Logout'>Log out</a></li>"; 
+					
+					echo "</ul>"; 
+					echo "</li>";
+				}
 			}
 		?>
       </ul>
