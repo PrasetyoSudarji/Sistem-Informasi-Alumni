@@ -33,7 +33,10 @@
 				}else{
 					$profile = $this->Model->getNamaMhs($email);
 				}
+				$count = $this->Model->hitung("status","0", "notification");
+				
 				foreach($profile->result_array() as $namapengguna){
+					
 					echo "<li class='dropdown'>";
 					echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>".$namapengguna['username']."<span class='caret'></span></a>";
 					echo "<ul class='dropdown-menu'>";
@@ -42,9 +45,11 @@
 						echo "<li class=";if($link=='input_lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan/input_lowongan'><i class='fa fa-user' aria-hidden='true'></i> Buat Lowongan </a></li>";
 						echo "<li class=";if($link=='input_admin'){echo'active';}echo "><a href='/#'><i class='fa fa-user' aria-hidden='true'></i> Buat Admin </a></li>";
 						echo "<li class=";if($link=='input_user'){echo'active';}echo "><a href='/#'><i class='fa fa-user' aria-hidden='true'></i> Buat user </a></li>";
+						echo "<li class=";if($link=='notification'){echo'active';}echo "><a href='".base_url()."Notification'><i class='fa fa-user' aria-hidden='true'></i> Notification (".$count.")</a></li>";
 					}if ($user == 2 ){
 						echo "<li class=";if($link=='lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan'><i class='fa fa-user' aria-hidden='true'></i> Lihat Lowongan </a></li>";
 						echo "<li class=";if($link=='input_lowongan'){echo'active';}echo "><a href='".base_url()."Lowongan/input_lowongan'><i class='fa fa-user' aria-hidden='true'></i> Buat Lowongan </a></li>";
+						echo "<li class=";if($link=='notification'){echo'active';}echo "><a href='".base_url()."Notification'><i class='fa fa-user' aria-hidden='true'></i> Notification (".$count.")</a></li>";
 					} else if ($user == 3 ){
 						echo "<li class=";if($link=='profile'){echo'active';}echo "><a href='".base_url()."Profile'><i class='fa fa-user' aria-hidden='true'></i> Profile </a></li>";
 						echo "<li class=";if($link=='edit_profile'){echo'active';}echo "><a href='".base_url()."Profile/edit_profile'><i class='fa fa-user' aria-hidden='true'></i> Edit Profile </a></li>";

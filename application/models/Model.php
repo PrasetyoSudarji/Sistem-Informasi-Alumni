@@ -104,8 +104,7 @@ class Model extends CI_Model {
 							->get();
 	
 	}
-	
-	
+
 	
 	public function getStatusAdm($email)
 	{	

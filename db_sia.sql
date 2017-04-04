@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2017 at 08:37 PM
+-- Generation Time: Apr 04, 2017 at 10:02 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -87,6 +87,7 @@ INSERT INTO `lowongan` (`kode`, `prodi`, `judul`, `nama_perusahaan`, `expired_ti
 ('IF2', 'Teknik Informatika', 'Programmer', 'Gameloft', '2017-04-13', 'Aman '),
 ('IF3', 'Teknik Informatika', 'Programmer', 'Syncore', '2017-04-27', 'aman'),
 ('IF4', 'Teknik Informatika', 'Desainer', 'Art', '2017-04-20', 'aman'),
+('IF5', 'Teknik Informatika', 'Tester', 'Gameloft', '2017-04-20', 'aman'),
 ('UM1', 'Umum', 'Teller', 'Bank Lampung', '2017-04-19', 'Aman');
 
 -- --------------------------------------------------------
@@ -110,7 +111,8 @@ INSERT INTO `lowongan_applied` (`id`, `nim`, `kode`, `status`) VALUES
 (4, 14113003, 'IF2', '1'),
 (5, 14113003, 'UM1', '1'),
 (6, 14113003, 'IF3', '1'),
-(7, 14113003, 'IF4', '1');
+(7, 14113003, 'IF4', '1'),
+(8, 14113003, 'IF5', '1');
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,7 @@ INSERT INTO `lowongan_counter` (`prodi`, `counter`) VALUES
 ('EL', 1),
 ('FI', 1),
 ('GD', 1),
-('IF', 5),
+('IF', 6),
 ('PWK', 1),
 ('SI', 1),
 ('TG', 1),
@@ -167,6 +169,26 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`email`, `nim`, `nama`, `username`, `prodi`, `tahun_lulus`, `foto`, `status`, `jumlah_skill`, `linked_in`, `fb`, `twitter`, `instagram`) VALUES
 ('prasetyosudarji@gmail.com', 14113003, 'prasetyo sudarji', 'prasetyo', 'Teknik Informatika', 2018, 'unnamed.png', '3', 5, '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(4) NOT NULL,
+  `from` varchar(32) NOT NULL,
+  `status` enum('0','1') NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `from`, `status`, `message`) VALUES
+(1, 'prasetyo', '1', ' prasetyo telah melakukan apply pada lowongan IF5 ');
 
 -- --------------------------------------------------------
 
@@ -241,7 +263,15 @@ ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `nim` (`nim`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `prodi` (`prodi`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `from` (`from`);
 
 --
 -- Indexes for table `prodi`
@@ -258,7 +288,12 @@ ALTER TABLE `prodi`
 -- AUTO_INCREMENT for table `lowongan_applied`
 --
 ALTER TABLE `lowongan_applied`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -293,6 +328,12 @@ ALTER TABLE `lowongan_counter`
 --
 ALTER TABLE `mahasiswa`
   ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`nama`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`from`) REFERENCES `mahasiswa` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -124,6 +124,18 @@ class Lowongan extends CI_Controller {
 			
 		}
 		
+		//Notification
+		$query = $this->Model->getNamaMhs($_SESSION['login'])->result_array();
+		foreach($query as $query){
+			$username = $query["username"];
+		}
+		$data_insert = array(
+			'from' => $username,
+			'status' => "0",
+			'message' => " ".$username." telah melakukan apply pada lowongan ".$_POST['kode']." "
+		);
+		$this->Model->simpan_data($data_insert,"notification");
+		
 		//Kirim email
 		/*$this->load->library('email');
 
