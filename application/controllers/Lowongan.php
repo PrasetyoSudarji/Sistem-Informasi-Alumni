@@ -70,18 +70,33 @@ class Lowongan extends CI_Controller {
 	}
 	
 	public function proc_kelola_lowongan(){
+		if($_POST['btn'] == 1){
+			$data_insert = array(
+				'expired_time' => $_POST['expired_time'],
+				'deskripsi' => $_POST['deskripsi']
+			);
+			$this->Model->update("kode",$_POST['kode'],"lowongan",$data_insert);
+		}else{
+			$this->Model->hapus("kode", $_POST['kode'], "lowongan");
+		}
 		
-		
-		
-	}
-	
-	public function proc_hapus_lowongan($kode_lowongan){
-		
-		$this->Model->hapus("kode", $kode_lowongan, "lowongan");
 		$data = array(
 			'session' => $_SESSION['login'],
 			'page' => 'lowongan',
 			'link' => 'lowongan',
+			'lowongan' => $this->Model->list_data_all('lowongan')
+		);
+		$this->load->view('template/wrapper', $data);
+	}
+	
+	public function proc_apply_lowongan($kode_lowongan){
+		
+		
+		$data = array(
+			'session' => $_SESSION['login'],
+			'page' => 'lowongan',
+			'link' => 'lowongan',
+			'lowongan' => $this->Model->list_data_all('lowongan')
 		);
 		$this->load->view('template/wrapper', $data);
 		
