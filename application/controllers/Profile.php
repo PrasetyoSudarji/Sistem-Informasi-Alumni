@@ -48,7 +48,7 @@ class Profile extends CI_Controller {
 		
 		if ( !$this->upload->do_upload('userfile'))
 		{
-			
+			echo "Upload error !!";
 		}
 		else
 		{

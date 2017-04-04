@@ -7,12 +7,12 @@
 			<br>
 			<?php
 				
-				echo "<form method='POST' action='".base_url()."Profile/proc_update_foto'>";
+				echo form_open_multipart(base_url()."Profile/proc_update_foto");
 				foreach ($profile->result_array() as $foto){
 					echo "<img src ='".base_url('assets/uploads/'.$foto['foto'].'')."' width='200px' height='200px'><br>";
 				}
-				echo "<input type='file' name='userfile' size='20' /><br />";
-				echo "<input type='submit' value='change' /><hr>";
+				echo "<input type='file' name='userfile' size='20' ><br />";
+				echo "<input type='submit' value='change' ><hr>";
 				echo "</form>";
 				
 				echo "<form method='POST' action='".base_url()."Profile/proc_update_profile'>";	
